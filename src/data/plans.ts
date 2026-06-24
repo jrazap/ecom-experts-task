@@ -4,7 +4,7 @@ export const plans: Plan[] = [
   {
     id: "cam-unlimited",
     name: "Cam Unlimited",
-    price: 9.99,
+    price: 12.99,
     description: "Unlimited cloud storage for all your Wyze cams.",
   },
   {

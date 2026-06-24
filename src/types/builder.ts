@@ -16,7 +16,6 @@ export interface Product {
   description: string;
   image: string;
   price: number;
-  oldPrice?: number;
   discount?: number;
   badge?: string;
   options?: ProductOption[];
@@ -29,7 +28,7 @@ export interface Plan {
   id: string;
   name: string;
   price: number;
-  oldPrice?: number;
+  discount?: number;
   description?: string;
 }
 

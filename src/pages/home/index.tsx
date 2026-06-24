@@ -45,7 +45,7 @@ export function HomePage() {
   };
 
   const buttonClasses = cn(
-    "h-11 rounded-lg border border-mckenzie px-8 text-lg font-semibold text-mckenzie hover:bg-mckenzie hover:text-white transition-all"
+    "h-11 rounded-lg border border-mckenzie px-8 text-lg font-semibold text-mckenzie transition-all hover:bg-mckenzie hover:text-white"
   );
 
   return (

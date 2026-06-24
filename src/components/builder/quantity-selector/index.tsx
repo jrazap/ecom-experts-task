@@ -23,7 +23,7 @@ export function QuantitySelector({
     const buttonSize = size === "sm" ? "size-5" : "size-9";
 
     const buttonClasses = cn(
-      "inline-flex items-center justify-center rounded-[4px] border border-[#e3e6eb] bg-white text-[#4a4a4a] transition-colors hover:bg-[#f7f8fa] cursor-pointer",
+      "inline-flex cursor-pointer items-center justify-center rounded-[4px] border border-[#e3e6eb] bg-white text-[#4a4a4a] transition-colors hover:bg-[#f7f8fa]",
       buttonSize
     );
 
@@ -36,7 +36,7 @@ export function QuantitySelector({
           type="button"
           onClick={onDecrease}
           aria-label="Decrease quantity"
-            className={buttonClasses}
+          className={buttonClasses}
         >
           <Minus className="size-2.5 stroke-[2.5]" />
         </button>

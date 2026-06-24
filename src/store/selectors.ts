@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 
 import { getPlanById, getProductById } from "@/lib/catalog";
+import { getSalePrice } from "@/lib/pricing";
 import type { ProductCategory } from "@/types/builder";
 
 import { useBuilderStore } from "./builder.store";
@@ -11,7 +12,8 @@ export interface LineItem {
   image: string;
   quantity: number;
   price: number;
-  oldPrice?: number;
+  listPrice?: number;
+  discount?: number;
   free?: boolean;
   category: ProductCategory | "plan";
 }
@@ -40,8 +42,9 @@ export function useLineItems(): LineItem[] {
         name: product.name,
         image: product.image,
         quantity,
-        price: product.free ? 0 : product.price,
-        oldPrice: product.free ? undefined : product.oldPrice,
+        price: product.free ? 0 : getSalePrice(product.price, product.discount),
+        listPrice: product.free ? undefined : product.price,
+        discount: product.discount,
         free: product.free,
         category: product.category,
       });
@@ -54,7 +57,9 @@ export function useLineItems(): LineItem[] {
         name: plan.name,
         image: "/products/plan.png",
         quantity: 1,
-        price: plan.price,
+        price: getSalePrice(plan.price, plan.discount),
+        listPrice: plan.price,
+        discount: plan.discount,
         category: "plan",
       });
     }
@@ -91,24 +96,29 @@ export function useBuilderTotals() {
       const product = getProductById(id);
       if (!product || quantity <= 0 || product.free) continue;
 
-      subtotal += product.price * quantity;
-      originalTotal += (product.oldPrice ?? product.price) * quantity;
+      const salePrice = getSalePrice(product.price, product.discount);
+      subtotal += salePrice * quantity;
+      originalTotal += product.price * quantity;
     }
 
     const plan = getPlanById(selectedPlanId);
-    const monthlyTotal = plan?.price ?? 0;
+    const monthlyTotal = plan ? getSalePrice(plan.price, plan.discount) : 0;
 
     const savings = Math.max(originalTotal - subtotal, 0);
     const total = subtotal;
+    const shippingOriginal = 5.99;
 
     return {
       subtotal,
       originalTotal:
-        originalTotal > subtotal ? originalTotal : subtotal + savings,
+        originalTotal > subtotal
+          ? originalTotal + shippingOriginal
+          : subtotal + savings + shippingOriginal,
       savings,
       total,
       monthlyTotal,
       monthlyEstimate: total / 12 + monthlyTotal,
+      shippingOriginal,
     };
   }, [quantities, selectedPlanId]);
 }

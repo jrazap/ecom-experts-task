@@ -3,6 +3,7 @@ import { useBuilderStore } from "@/store/builder.store";
 import type { Product } from "@/types/builder";
 
 import { formatCurrency } from "@/lib/format";
+import { getSalePrice } from "@/lib/pricing";
 import { QuantitySelector } from "../quantity-selector";
 import {
   ColorOptionButton,
@@ -31,20 +32,20 @@ export function ProductCard({ product, className }: ProductCardProps) {
   return (
     <article
       className={cn(
-        "relative rounded-[10px] bg-white p-2.5 transition-all min-h-[180px]",
+        "relative min-h-[180px] rounded-[10px] bg-white p-2.5 transition-all",
         isSelected
           ? "border border-wyze-purple shadow-[0_0_0_1px_rgba(80,57,209,0.08)]"
           : "border border-transparent",
         className
       )}
     >
-      <div className="space-y-4 h-full">
-        <div className="flex gap-4 h-full">
+      <div className="h-full space-y-4">
+        <div className="flex h-full gap-4">
           <div className="flex w-[112px] shrink-0 flex-col items-center justify-center gap-5">
-            <div className="flex items-center justify-center w-full">
+            <div className="flex w-full items-center justify-center">
               {/* Badge */}
               {product.badge && (
-                <span className="absolute top-2.5 inset-s-2.5 z-10 rounded-full bg-wyze-purple px-2.5 py-1 text-[11px] leading-none font-bold text-white">
+                <span className="absolute inset-s-2.5 top-2.5 z-10 rounded-full bg-wyze-purple px-2.5 py-1 text-[11px] leading-none font-bold text-white">
                   {product.badge}
                 </span>
               )}
@@ -59,10 +60,10 @@ export function ProductCard({ product, className }: ProductCardProps) {
             </div>
           </div>
 
-          <div className="flex min-w-0 flex-1 flex-col gap-2.5 h-full">
+          <div className="flex h-full min-w-0 flex-1 flex-col gap-2.5">
             {/* Product Name and Description */}
             <div className="space-y-2">
-              <h3 className="text-base leading-tight font-bold text-retro-black line-clamp-1">
+              <h3 className="line-clamp-1 text-base leading-tight font-bold text-retro-black">
                 {product.name}
               </h3>
 
@@ -95,31 +96,34 @@ export function ProductCard({ product, className }: ProductCardProps) {
             )}
 
             {/* Quantity Selector and Price */}
-            <div className="flex-1 flex items-end">
-              <div className="flex flex-wrap items-center justify-between gap-4 w-full">
-              {/* Quantity Selector */}
-              <QuantitySelector
-                variant="square"
-                size="sm"
-                value={quantity}
-                onIncrease={() => increase(product.id)}
-                onDecrease={() => decrease(product.id)}
-              />
+            <div className="flex flex-1 items-end">
+              <div className="flex w-full flex-wrap items-center justify-between gap-4">
+                {/* Quantity Selector */}
+                <QuantitySelector
+                  variant="square"
+                  size="sm"
+                  value={quantity}
+                  onIncrease={() => increase(product.id)}
+                  onDecrease={() => decrease(product.id)}
+                />
 
-              {/* Price */}
-              <div className="flex flex-col items-end gap-1">
-                {product.discount && (
-                  <span className="text-base font-normal leading-none text-red-beauty line-through">
-                    {formatCurrency(product.price )}
+                {/* Price */}
+                <div className="flex flex-col items-end gap-1">
+                  {product.discount && (
+                    <span className="text-base leading-none font-normal text-red-beauty line-through">
+                      {formatCurrency(product.price)}
+                    </span>
+                  )}
+                  <span className="text-base leading-none font-normal text-retro-black/75">
+                    {product.free
+                      ? "FREE"
+                      : formatCurrency(
+                          getSalePrice(product.price, product.discount)
+                        )}
                   </span>
-                )}
-                <span className="text-base leading-none font-normal text-retro-black/75">
-                  {product.free ? "FREE" : product.discount ? formatCurrency(product.price* (1 - product.discount / 100)) : formatCurrency(product.price)}
-                </span>
+                </div>
               </div>
             </div>
-            </div>
-            
           </div>
         </div>
       </div>

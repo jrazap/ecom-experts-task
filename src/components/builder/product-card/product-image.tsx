@@ -52,7 +52,7 @@ export function ProductImage({
     return (
       <div
         className={cn(
-          "flex items-center justify-center rounded-[4px] bg-[#f3f5f8] w-full",
+          "flex w-full items-center justify-center rounded-[4px] bg-[#f3f5f8]",
           className
         )}
       >
