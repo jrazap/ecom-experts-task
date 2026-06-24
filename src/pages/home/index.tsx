@@ -1,6 +1,3 @@
-import { Camera, Grid2x2Plus, Radar, Shield } from "lucide-react";
-import { useState } from "react";
-
 import { ProductCard } from "@/components/builder/product-card";
 import { ReviewPanel } from "@/components/builder/review-panel";
 import { StepSection } from "@/components/builder/step-section";
@@ -15,6 +12,8 @@ import { cn } from "@/lib/utils";
 import { useBuilderStore } from "@/store/builder.store";
 import { useCategoryCount } from "@/store/selectors";
 import type { BuilderStep } from "@/types/builder";
+import { Camera, Grid2x2Plus, Radar, Shield } from "lucide-react";
+import { useState } from "react";
 
 const stepOrder: BuilderStep[] = ["cameras", "plan", "sensors", "protection"];
 

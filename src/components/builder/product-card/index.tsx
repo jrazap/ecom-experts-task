@@ -1,9 +1,8 @@
+import { formatCurrency } from "@/lib/format";
+import { getSalePrice } from "@/lib/pricing";
 import { cn } from "@/lib/utils";
 import { useBuilderStore } from "@/store/builder.store";
 import type { Product } from "@/types/builder";
-
-import { formatCurrency } from "@/lib/format";
-import { getSalePrice } from "@/lib/pricing";
 import { QuantitySelector } from "../quantity-selector";
 import {
   ColorOptionButton,

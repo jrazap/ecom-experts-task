@@ -1,6 +1,5 @@
-import { create } from "zustand";
-
 import { getProductById } from "@/lib/catalog";
+import { create } from "zustand";
 
 interface BuilderState {
   quantities: Record<string, number>;

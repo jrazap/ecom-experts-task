@@ -1,13 +1,12 @@
-import { Truck } from "lucide-react";
-
 import { SummaryItem } from "@/components/builder/summary-item";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { formatCurrency, formatMonthly } from "@/lib/format";
 import { cn } from "@/lib/utils";
-import { useBuilderTotals, useLineItems } from "@/store/selectors";
 import type { LineItem } from "@/store/selectors";
+import { useBuilderTotals, useLineItems } from "@/store/selectors";
+import { Truck } from "lucide-react";
 
 const sectionLabels: Record<
   "cameras" | "sensors" | "accessories" | "plan",
@@ -114,7 +113,7 @@ export function ReviewPanel({ className }: { className?: string }) {
         </div>
         <div className="mb-3 flex items-end justify-between gap-3">
           <img
-            src="/satisfaction-badge.png"
+            src="/satisfaction-badge.webp"
             alt="Guarantee"
             className="size-[78px]"
           />

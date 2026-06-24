@@ -1,8 +1,7 @@
-import { Camera } from "lucide-react";
-import { useEffect, useState } from "react";
-
 import { cn } from "@/lib/utils";
 import type { Product, ProductOption } from "@/types/builder";
+import { Camera } from "lucide-react";
+import { useEffect, useState } from "react";
 
 const colorMap: Record<string, string> = {
   white: "bg-white border-[#e3e6eb]",

@@ -1,5 +1,4 @@
 import type { ReactNode } from "react";
-
 import { Footer } from "./footer";
 
 interface PageLayoutProps {

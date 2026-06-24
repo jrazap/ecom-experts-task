@@ -1,6 +1,3 @@
-import type { LucideIcon } from "lucide-react";
-import type { ReactNode } from "react";
-
 import {
   AccordionContent,
   AccordionItem,
@@ -8,6 +5,8 @@ import {
   StepChevron,
 } from "@/components/ui/accordion";
 import { cn } from "@/lib/utils";
+import type { LucideIcon } from "lucide-react";
+import type { ReactNode } from "react";
 
 interface StepSectionProps {
   value: string;

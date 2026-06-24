@@ -1,9 +1,7 @@
-import { useMemo } from "react";
-
 import { getPlanById, getProductById } from "@/lib/catalog";
 import { getSalePrice } from "@/lib/pricing";
 import type { ProductCategory } from "@/types/builder";
-
+import { useMemo } from "react";
 import { useBuilderStore } from "./builder.store";
 
 export interface LineItem {
@@ -55,7 +53,7 @@ export function useLineItems(): LineItem[] {
       items.push({
         id: plan.id,
         name: plan.name,
-        image: "/products/plan.png",
+        image: "",
         quantity: 1,
         price: getSalePrice(plan.price, plan.discount),
         listPrice: plan.price,
