@@ -1,4 +1,4 @@
-# Security System Builder
+# Ecom Experts Task - Mohamed Elazap
 
 A Wyze-inspired, multi-step security bundle configurator built with React. Users pick cameras, plans, sensors, and accessories across a stepped accordion flow while a live review panel updates quantities, pricing, and savings.
 
