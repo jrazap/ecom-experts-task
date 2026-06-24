@@ -5,7 +5,7 @@ export const protection: Product[] = [
     id: "microsd-256",
     name: "Wyze MicroSD Card (256GB)",
     description: "Local storage for continuous recording.",
-    image: "/products/microsd-256.png",
+    image: "/accessories/sd-card.png",
     price: 15.99,
     category: "accessories",
   },

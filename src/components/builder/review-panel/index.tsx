@@ -38,24 +38,25 @@ export function ReviewPanel({ className }: { className?: string }) {
   return (
     <aside
       className={cn(
-        "flex flex-col overflow-hidden rounded-2xl bg-wyze-panel shadow-xs ring-1 ring-wyze-purple/10 lg:sticky lg:top-6 lg:max-h-[calc(100vh-3rem)]",
+        "flex flex-col overflow-hidden rounded-2xl bg-wyze-step-open lg:sticky lg:top-6 lg:max-h-[calc(100vh-3rem)]",
         className
       )}
     >
-      <div className="border-b border-wyze-purple/10 px-6 py-5">
-        <p className="text-[11px] font-semibold tracking-wider text-muted-foreground uppercase">
+      <div className="border-b border-wyze-purple/10 px-5">
+        <p className="pt-[15px] pb-[5px] text-xs font-normal tracking-[1.6px] text-dark-heazer-grey uppercase">
           Review
         </p>
-        <h2 className="mt-1 text-xl font-bold text-foreground">
+        <h2 className="mt-5 mb-[5px] text-[22px] font-bold tracking-[0.6px] text-retro-black">
           Your security system
         </h2>
-        <p className="mt-1 text-sm text-muted-foreground">
-          Review your selections and checkout when you&apos;re ready.
+        <p className="mb-2.5 text-sm text-retro-black/75">
+          Review your personalized protection system designed to keep what
+          matters most safe.
         </p>
       </div>
 
-      <ScrollArea className="flex-1 px-6">
-        <div className="py-2">
+      <ScrollArea className="flex-1 px-5">
+        <div>
           {(
             Object.keys(sectionLabels) as Array<keyof typeof sectionLabels>
           ).map((key) => {
@@ -64,7 +65,7 @@ export function ReviewPanel({ className }: { className?: string }) {
 
             return (
               <div key={key}>
-                <p className="py-2 text-[11px] font-semibold tracking-wider text-muted-foreground uppercase">
+                <p className="pt-[15px] pb-2 text-xs font-normal tracking-[1.6px] text-pewter uppercase">
                   {sectionLabels[key]}
                 </p>
                 {items.map((item) => (

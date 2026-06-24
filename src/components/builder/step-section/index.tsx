@@ -40,7 +40,7 @@ export function StepSection({
       )}
     >
       <AccordionTrigger variant="step" hideChevron className="w-full">
-        <span className="block px-2 pt-4 pb-3 text-sm font-normal tracking-[1.6px] text-dark-heazer-grey uppercase">
+        <span className="block px-2 pt-4 pb-3 text-xs font-normal tracking-[1.6px] text-dark-heazer-grey uppercase">
           Step {step} of {totalSteps}
         </span>
 
