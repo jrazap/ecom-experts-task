@@ -49,10 +49,14 @@ export function HomePage() {
   );
 
   return (
-    <div className="min-h-screen">
-      <div className="mx-auto max-w-[1440px] px-4 py-8 lg:px-6">
+    <div>
+      <div className="mx-auto max-w-[1440px] py-8 sm:px-4 lg:px-6">
         <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-[minmax(0,1fr)_340px] xl:grid-cols-[minmax(0,1fr)_380px] xl:gap-8">
           <div className="overflow-hidden bg-card">
+            {/* Mobile Title */}
+            <h1 className="pb-5 text-center text-[32px] font-bold text-retro-black sm:hidden">
+              Let’s get started!
+            </h1>
             <Accordion
               value={openStep}
               onValueChange={(value) =>

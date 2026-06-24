@@ -34,7 +34,7 @@ export function StepSection({
     <AccordionItem
       value={value}
       className={cn(
-        "group border-none px-4 py-2 transition-colors last:border-b-0",
+        "group border-none py-2 transition-colors last:border-b-0 sm:px-4",
         "data-open:border-b-none data-open:rounded-[10px] data-open:bg-wyze-step-open data-open:px-4 data-open:py-2",
         className
       )}
