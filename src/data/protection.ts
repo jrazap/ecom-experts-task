@@ -1,20 +1,5 @@
 import type { Product } from "@/types/builder";
 
-export const protection: Product[] = [
-  {
-    id: "microsd-256",
-    name: "Wyze MicroSD Card (256GB)",
-    description: "Local storage for continuous recording.",
-    image: "/accessories/sd-card.webp",
-    price: 15.99,
-    category: "accessories",
-  },
-  {
-    id: "extended-warranty",
-    name: "Extended Warranty",
-    description: "2 years of additional device protection.",
-    image: "",
-    price: 19.99,
-    category: "protection",
-  },
-];
+import protectionData from "./protection.json";
+
+export const protection = protectionData as Product[];

@@ -1,73 +1,117 @@
-# React + TypeScript + Vite
+# Security System Builder
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A Wyze-inspired, multi-step security bundle configurator built with React. Users pick cameras, plans, sensors, and accessories across a stepped accordion flow while a live review panel updates quantities, pricing, and savings.
 
-Currently, two official plugins are available:
+## Live demo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+**[https://ecom-experts-task.vercel.app](https://ecom-experts-task.vercel.app)**
 
-## React Compiler
+## Prerequisites
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Node.js** 20 or later
+- **pnpm** 9+ (recommended) — npm and yarn also work
 
-## Expanding the ESLint configuration
+## Run from a clean clone
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+```bash
+git clone <your-repo-url>
+cd security-builder
+pnpm install
+pnpm dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Open [http://localhost:5173](http://localhost:5173).
 
-```js
-// eslint.config.js
-import reactX from "eslint-plugin-react-x";
-import reactDom from "eslint-plugin-react-dom";
+### Production build
 
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs["recommended-typescript"],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+```bash
+pnpm install
+pnpm build
+pnpm preview
 ```
+
+`pnpm preview` serves the production build at [http://localhost:4173](http://localhost:4173).
+
+### Other scripts
+
+| Command           | Description                          |
+| ----------------- | ------------------------------------ |
+| `pnpm dev`        | Start Vite dev server with HMR       |
+| `pnpm build`      | Type-check and build for production  |
+| `pnpm preview`    | Preview the production build locally |
+| `pnpm lint`       | Run ESLint                           |
+| `pnpm format`     | Format with Prettier + Tailwind sort |
+
+## Project structure
+
+```
+src/
+├── components/
+│   ├── builder/          # ProductCard, ReviewPanel, StepSection, etc.
+│   ├── layout/           # PageLayout, Footer
+│   └── ui/               # shadcn / Base UI primitives
+├── data/                 # Product & plan JSON + typed loaders
+│   ├── cameras.json
+│   ├── sensors.json
+│   ├── plans.json
+│   └── protection.json
+├── lib/                  # catalog, pricing, formatting helpers
+├── pages/home/           # Main builder page
+├── store/                # Zustand store + selectors
+└── types/                # Shared TypeScript types
+
+public/
+├── cameras/              # Product images (webp)
+├── sensors/
+└── accessories/
+```
+
+## Data
+
+Catalog data lives in **`src/data/*.json`**. Thin TypeScript files (`cameras.ts`, etc.) import the JSON and cast to shared types so the app stays type-safe while the source of truth remains editable JSON.
+
+**Pricing model**
+
+- `price` — list price (shown struck through when discounted)
+- `discount` — percentage off (e.g. `22` = 22% off)
+- Sale price = `price × (1 - discount / 100)`
+
+There is **no backend** in this submission; all data is static and bundled at build time.
+
+## Tech stack
+
+- **React 19** + **TypeScript** + **Vite 8**
+- **Tailwind CSS 4** with custom Wyze design tokens
+- **Zustand** for builder state (quantities, color options, selected plan)
+- **shadcn/ui** (Base UI) for Accordion, Button, ScrollArea, etc.
+- **Gilroy Medium** (local font in `src/fonts/`)
+
+## Features
+
+- Four-step accordion builder (cameras → plan → sensors → protection)
+- Product cards with color variants, quantity controls, and dynamic images
+- Sticky review panel with grouped line items, shipping, totals, and savings
+- Expanded accordion step styling (light background, 10px radius)
+- Responsive two-column layout (builder + review panel)
+
+## Decisions & tradeoffs
+
+| Decision | Rationale |
+| -------- | --------- |
+| **Static JSON over API** | Faster to ship, easy to review in the repo, no deploy complexity. A backend would be the natural next step for real inventory/pricing. |
+| **Zustand vs Context** | Minimal boilerplate for cart-like state; selectors stay colocated with the store. |
+| **JSON + typed imports** | Satisfies the deliverable (readable data files) while keeping compile-time safety via `Product` / `Plan` types. |
+| **shadcn / Base UI** | Accessible accordion and form primitives without building from scratch. |
+| **Single page** | `react-router-dom` is installed but unused; the assignment scope is one builder view. |
+| **Default selections** | Store seeds demo quantities so the review panel matches the design mock on first load. |
+
+## Not finished / out of scope
+
+- **Backend bonus** — no server, database, or checkout API
+- **Checkout flow** — button is presentational only
+- **Cart persistence** — selections reset on refresh (no `localStorage` / URL state)
+- **Automated tests** — no unit or E2E test suite
+
+## License
+
+Private / submission project — adjust as needed before publishing.
