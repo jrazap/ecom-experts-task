@@ -54,7 +54,7 @@ export function ReviewPanel({ className }: { className?: string }) {
   return (
     <aside
       className={cn(
-        "flex flex-col overflow-hidden bg-wyze-step-open sm:rounded-[10px] lg:sticky lg:top-6 lg:max-h-[calc(100vh-3rem)]",
+        "flex flex-col overflow-hidden bg-wyze-step-open sm:rounded-[10px] lg:sticky lg:top-6 lg:max-h-[calc(100vh-3rem)] overflow-y-auto",
         className
       )}
     >
